@@ -2,8 +2,8 @@
  * A base vue3 application using webpack and grunt.
  */
 const path = require('path');
-require('webpack');
 const { VueLoaderPlugin } =require('vue-loader');
+const { webpack, DefinePlugin } = require('webpack');
 const BASE_DIR = __dirname;
 const OUTPUT_DIR = BASE_DIR + '/build/';
 const buildFiles = ['main.js'];
@@ -41,10 +41,15 @@ function getConfig(target, buildFiles) {
         }, {
           test: /\.vue$/,
           use: 'vue-loader'
-        }
+        },
+        { test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
       ],
     },
-    plugins: [new VueLoaderPlugin()]
+    plugins: [new VueLoaderPlugin(),
+    new DefinePlugin({
+      __VUE_OPTIONS_API__ : true,
+      __VUE_PROD_DEVTOOLS__ : true
+    })]
   };
 }
 
