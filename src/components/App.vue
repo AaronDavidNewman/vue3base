@@ -14,92 +14,14 @@
 <script>
 import { default as treetop } from "./treetop.vue";
 import { default as treeview } from "./treeview.vue";
-const trees = [
-  {
-    id: "Tree1",
-    label: "Tree 1",
-    index: 0,
-    levels: [
-      {
-        id: "0",
-        label: "1-1",
-        level: 0,
-        items: [
-          { id: "1-1-1", label: "1-1-1" },
-          { id: "1-1-2", label: "Second branch" },
-        ],
-      },
-      {
-        id: "2",
-        label: "1-2",
-        level: 1,
-        items: [
-          { id: "1-2-1", label: "1-2-1" },
-          { id: "1-1-2", label: "Second lvl 2nd branch" },
-        ],
-      },
-      {
-        id: "3",
-        label: "1-3",
-        level: 2,
-        items: [
-          { id: "1-2-1", label: "1-2-1" },
-          { id: "1-1-2", label: "Second lvl 2nd branch" },
-        ],
-      },
-    ],
-  },
-  {
-    id: "Tree2",
-    label: "Tree 2",
-    index: 1,
-    levels: [
-      {
-        id: "0",
-        label: "2-1",
-        level: 0,
-        items: [
-          { id: "2-1-1", label: "2-1-1" },
-          { id: "1-1-2", label: "Second branch" },
-        ],
-      },
-      {
-        id: "2",
-        label: "1-2",
-        level: 1,
-        items: [
-          { id: "2-2-1", label: "2-2-1" },
-          { id: "2-2-2", label: "other branch" },
-        ],
-      },
-      {
-        id: "3",
-        label: "1-3",
-        level: 2,
-        items: [
-          { id: "2-3-1", label: "2-3-1" },
-          { id: "2-3-2", label: "olive branch" },
-        ],
-      },
-      {
-        id: "4",
-        label: "1-3",
-        level: 3,
-        items: [
-          { id: "2-4-1", label: "2-3-1" },
-          { id: "2-4-2", label: "ultimate branch" },
-        ],
-      },
-    ],
-  },
-];
+import { sampleData } from '../sampleData.js';
 function getTreeList() {
-  return trees.map((x) => {
+  return sampleData.map((x) => {
     return { label: x.label, id: x.id, index: x.index };
   });
 }
 function getTree(treeId) {
-  return trees.find((tree) => tree.id === treeId);
+  return sampleData.find((tree) => tree.id === treeId);
 }
 export default {
   components: { treetop, treeview },
@@ -132,15 +54,23 @@ export default {
       const tree = this.selectedTree;
       if (tree && tree.levels) {
         tree.levels.forEach((level) => {
+          // this.currentLevel is the tree level of the most recent change.  So update that row
           if (level.level === this.currentLevel) {
+            // add if new, else just update
             if (this.levels.length <= this.currentLevel) {
               this.levels.push(level);
             } else {
-              this.levels[level.level] = level;
+              // Update all fields individually, so the Vue ref tracker informs the child.
+              const ix = level.level;              
+              this.levels[ix].level = level.level;
+              this.levels[ix].id = level.id;
+              this.levels[ix].label = level.label;
+              this.levels[ix].items = level.items;
             }
-          } else {
+          } else if (level.level > this.currentLevel) {
+            // For levels above the current level, we don't know the value yet.  So empty it of items.
+            // For levels below the current level, leave the values alone
             const levelObj = {
-              root: tree.id,
               level: level.level,
               id: level.id,
               label: level.label,
@@ -149,7 +79,11 @@ export default {
             if (this.levels.length <= level.level) {
               this.levels.push(levelObj);
             } else {
-              this.levels[level] = levelObj;
+              const ix = level.level;
+              this.levels[ix].level = levelObj.level;
+              this.levels[ix].id = levelObj.id;
+              this.levels[ix].label = levelObj.label;
+              this.levels[ix].items = [];
             }
           }
         });
@@ -159,15 +93,31 @@ export default {
       if (this.selectedValues.length <= val.level) {
         this.selectedValues.push(val.value);
       } else {
-        this.selectedValues[val.value] = val.value;
+        this.selectedValues[val.level] = val.value;
+        var i = val.level + 1;
+        const len = this.selectedValues.length;
+        while (i < len) {
+          this.selectedValues.pop();
+          i += 1;
+        }
       }
       if (val.level === this.currentLevel && this.selectedTree.levels.length > this.currentLevel + 1) {
-        this.levels[val.level + 1] = this.selectedTree.levels[val.level + 1];
+        const ix = val.level + 1;
+        const inst = this.selectedTree.levels[ix];
+        this.levels[ix].level = inst.level;
+        this.levels[ix].id = inst.id;
+        this.levels[ix].label = inst.label;
+        this.levels[ix].items = inst.items;
         this.currentLevel += 1;
       } else if (val.level < this.currentLevel) {
-        this.currentLevel = val.level;
+        if (this.levels.length > val.level + 1) {
+          this.currentLevel = val.level + 1;
+        } else {
+          this.currentLevel = val.level;
+        }
         this.updateTree();
       }
+      console.log(JSON.stringify(this.selectedValues, null, ''));
     },
   },
 };
