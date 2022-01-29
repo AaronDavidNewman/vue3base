@@ -1,8 +1,8 @@
 <template>
   <div class="form-group form-group-constrained">
-    <label class="form-group-label" v-bind:for="id"> {{ label }} </label>
-    <select v-bind:id="id" @change="selected" :disabled="isDisabled">
-      <option value="" disabled="" selected="">Select a {{ label }}</option>
+    <label class="form-group-label" v-bind:for="uniqueId"> {{ label }} </label>
+    <select v-bind:id="uniqueId" @change="selected" :disabled="isDisabled">
+      <option value="default" style="display: none">Select a {{ label }}</option>
       <option v-for="item in items" :key="item.label" v-bind:value="item.id">
         {{ item.label }}
       </option>
@@ -17,7 +17,8 @@ export default {
     const label = props.label;
     const items = props.items;
     const level = props.level;
-    return { id, label, items, level };
+    const domId = props.domId;
+    return { id, label, items, level, domId };
   },
   data() {
     return { currentValue: "" };
@@ -28,10 +29,14 @@ export default {
     label: String,
     items: Array,
     level: Number,
+    domId: String
   },
   computed: {
     isDisabled() {
       return this.items.length < 1;
+    },
+    uniqueId() {
+      return this.domId + '-' + this.level;
     }
   },
   methods: {

@@ -1,6 +1,6 @@
 <template>
-  <select v-bind:id="currentTree" @change="selected" class="astAttrSelect">
-    <option value="" disabled="" selected="">Select a tree</option>
+  <select v-bind:id="uniqueId" @change="selected" class="astAttrSelect">
+    <option value="" style="display: none">Select a tree</option>
     <option v-for="tree in treelist" :key="tree.id" v-bind:value="tree.id">
       {{ tree.label }}
     </option>
@@ -13,6 +13,7 @@ export default defineComponent({
   //   components: { treeview },
   props: {
     treelist: Array,
+    domId: String
   },
   setup(props) {
     return {
@@ -23,6 +24,11 @@ export default defineComponent({
     return { currentTree: "" };
   },
   emits: ["tree-selected"],
+  computed: {
+    uniqueId() {
+      return this.domId + '-chooser';
+    }
+  },
   methods: {
     selected(ev) {
       this.currentTree = ev.currentTarget.value;

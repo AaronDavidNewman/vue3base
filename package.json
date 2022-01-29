@@ -1,7 +1,7 @@
 {
   "name": "vue3-webpack-grunt-base",
   "version": "1.0.0",
-  "description": "simple vue config",
+  "description": "simple vue3 config and project",
   "main": "Gruntfile.js",
   "dependencies": {
     "css-loader": "^6.5.1",
@@ -20,6 +20,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Aaron Newman",
   "license": "ISC"
 }

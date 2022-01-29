@@ -14,7 +14,7 @@
       <div class="tab-content">
         <div class="formSection tab-pane" :class="{ active: tabASelected }">
           <p class="stdSubIntro">Words go here</p>
-          <treetop :treelist="treelist" @tree-selected="treeSelected"></treetop>
+          <treetop :treelist="treelist" :domId="domId" @tree-selected="treeSelected"></treetop>
           <div v-for="level in compLevels" :key="level.id">
             <treeview
               :items="level.items"
@@ -22,6 +22,7 @@
               :id="level.id"
               :level="level.level"
               @level-selected="levelSelected"
+              :domId="domId"
             >
             </treeview>
           </div>
@@ -48,7 +49,7 @@ function getTree(treeId) {
 }
 export default {
   components: { treetop, treeview },
-  props: ["treelist"],
+  props: ['treelist', 'domId'],
   data() {
     return {
       selectedTreeLabel: "",
@@ -59,9 +60,10 @@ export default {
       selectedTab: 0,
     };
   },
-  setup() {
+  setup(props) {
     const treelist = getTreeList();
-    return { treelist };
+    const domId = props.domId;
+    return { treelist, domId };
   },
   computed: {
     tabASelected() {
@@ -79,7 +81,12 @@ export default {
         this.currentLevel = 0;
         this.compLevels.splice(0);
         this.selectedValues.splice(0);
-        this.updateTree();
+        // This update needs to be deferred to get one of the 
+        // computed values in the object to recompute. I'm not sure why, 
+        // maybe it is a VUE optimization.
+        setTimeout(() => {
+          this.updateTree();
+        }, 1);
       }
     },
     showTabA() {
@@ -124,7 +131,7 @@ export default {
         var i = this.currentLevel + 1;
         const ll = this.compLevels.length;
         while (i < ll) {
-          this.compLevels.pop();
+          this.compLevels[i].items.splice(0);
           i += 1;
         }
         tree.levels.forEach((level) => {
@@ -179,7 +186,9 @@ export default {
         } else {
           this.currentLevel = val.level;
         }
-        this.updateTree();
+        setTimeout(() => {
+          this.updateTree();
+        }, 1);
       }
       console.log(JSON.stringify(this.selectedValues, null, ""));
     },

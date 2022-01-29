@@ -49,7 +49,7 @@ export const sampleData = [
       },
       {
         id: "2",
-        label: "1-2",
+        label: "2-2",
         level: 1,
         items: [
           { id: "2-2-1", label: "2-2-1" },
@@ -58,7 +58,7 @@ export const sampleData = [
       },
       {
         id: "3",
-        label: "1-3",
+        label: "2-3",
         level: 2,
         items: [
           { id: "2-3-1", label: "2-3-1" },
@@ -68,7 +68,7 @@ export const sampleData = [
       },
       {
         id: "4",
-        label: "1-3",
+        label: "2-4",
         level: 3,
         items: [
           { id: "2-4-1", label: "2-4-1" },
