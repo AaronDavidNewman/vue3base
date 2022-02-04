@@ -36,6 +36,7 @@
   </div>
 </template>
 <script>
+import { reactive } from 'vue';
 import { default as treetop } from "./treetop.vue";
 import { default as treeview } from "./treeview.vue";
 import { sampleData } from "../sampleData.js";
@@ -49,21 +50,21 @@ function getTree(treeId) {
 }
 export default {
   components: { treetop, treeview },
-  props: ['treelist', 'domId'],
+  props: ['treelist', 'domId', 'compLevels'],
   data() {
     return {
       selectedTreeLabel: "",
       currentLevel: 0, // The highest level of the tree we have populated
-      compLevels: [], // The tree as represented to the dropdown components
       selectedTree: {}, // The full tree
       selectedValues: [], // The values selected in the dropdown components
       selectedTab: 0,
     };
   },
   setup(props) {
+    const compLevels = reactive([]);
     const treelist = getTreeList();
     const domId = props.domId;
-    return { treelist, domId };
+    return { treelist, domId, compLevels };
   },
   computed: {
     tabASelected() {
@@ -79,14 +80,12 @@ export default {
       this.selectedTree = getTree(val.value);
       if (this.selectedTree && this.selectedTree.levels) {
         this.currentLevel = 0;
+        this.compLevels.forEach((lvl) => {
+          lvl.items.splice(0);
+        });
         this.compLevels.splice(0);
         this.selectedValues.splice(0);
-        // This update needs to be deferred to get one of the 
-        // computed values in the object to recompute. I'm not sure why, 
-        // maybe it is a VUE optimization.
-        setTimeout(() => {
-          this.updateTree();
-        }, 1);
+        this.updateTree();
       }
     },
     showTabA() {

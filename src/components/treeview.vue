@@ -10,7 +10,8 @@
   </div>
 </template>
 <script>
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
   name: "treeview",
   setup(props) {
     const id = props.id;
@@ -45,7 +46,7 @@ export default {
       this.$emit("level-selected", { value: this.currentValue, level: this.level });
     },
   },
-};
+});
 </script>
 <style scoped>
 .form-group {
