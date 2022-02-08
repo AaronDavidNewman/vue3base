@@ -2,7 +2,7 @@
       <div class="tabContent">
   <div class="itemPreferences">
     <div class="itemPropertiesContainer">
-      <p>Do one of the things</p>
+      <p>This navigation control serves no purpose.</p>
       <ul class="nav-tabs">
         <li class="nav-tab" :class="{ active: tabASelected }">
           <a class="nav-link" href @click.prevent="showTabA">Tab A</a>
@@ -13,7 +13,7 @@
       </ul>
       <div class="tab-content">
         <div class="formSection tab-pane" :class="{ active: tabASelected }">
-          <p class="stdSubIntro">Words go here</p>
+          <p class="stdSubIntro">Pick a tree, then pick branches</p>
           <treetop :treelist="treelist" :domId="domId" @tree-selected="treeSelected"></treetop>
           <div v-for="level in compLevels" :key="level.id">
             <treeview
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="formSection tab-pane" :class="{ active: tabBSelected }">
-          <p class="stdSubIntro">Other words here</p>
+          <p class="stdSubIntro">Useless tabl here</p>
         </div>
         </div>
       </div>
