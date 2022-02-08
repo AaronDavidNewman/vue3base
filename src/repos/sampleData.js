@@ -1,3 +1,29 @@
+export async function getTreeListXhr() {
+  return sampleData.map((x) => {
+    return { label: x.label, id: x.id, index: x.index };
+  });
+}
+export async function getTreeXhr(treeId) {
+  const tree = sampleData.find((tree) => tree.id === treeId);
+  const rv = {
+    id: tree.id,
+    label: tree.label,
+    levels: []
+  };
+  tree.levels.forEach((level) => {
+    rv.levels.push({
+      id: level.id,
+      label: level.label,
+      level: level.level,
+      items: []
+    });
+  });
+  return tree;
+}
+export async function getTreeLevelXhr(treeId, level) {
+  return sampleData.find((tree) => tree.id === treeId).levels[level];
+}
+
 export const sampleData = [
   {
     id: "Tree1",
