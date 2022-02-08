@@ -171,7 +171,7 @@ VUE keeps a backing store of the DOM, so it can avoid an expensive DOM refresh i
 
 When there are no options in a 'select' list, I disable the element based on a value computed from the list size. When the whole list was removed and replaced with another empty list, I found that the computed value was not re-evaluated, and so the list was not disabled.  I'd imagine this is some type of optimization, or maybe some trick that I haven't leared yet.  I was able to work around this by splitting removal of the old list with creating the new list (using setTimeout).
 
-### 5: Tools
+### 6: Tools
 
 WRT building apps using webpack, you need the following tools.  I know it's all in the package.json, but it would have helped me if I knew what is needed and why, and what they do.
 
