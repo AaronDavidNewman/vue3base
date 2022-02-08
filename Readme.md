@@ -1,11 +1,13 @@
-<sub>[Github repo](https://github.com/AaronDavidNewman/vue3base) </sub>
+<sub>[Github](https://github.com/AaronDavidNewman/vue3base) code [demo](https://aarondavidnewman.github.io/vue3base/src/index.html) component</sub>
 ## VUE3 SFC component example (using webpack)
 
 I created this project with 2 goals in mind: 
 1. create a VUE3+SFC+webpack template to use for other projects
-2. create a complete implementation of the composition API using something resembling a real-world requirement
+2. create a complete implementation of a VUE component using the composition API, in something resembling a real-world situation
 
-The components simulate a tree selection, by using a series of 'select' controls that represent levels of the tree.  Choosing a parent populates child branches and enables more lists.  It looks like this:
+The components simulate a tree selection, by using a series of 'select' controls that represent levels of the tree.  Choosing a parent populates child branches and enables more lists.  You can demo the component [here](https://aarondavidnewman.github.io/vue3base/src/index.html)
+
+It looks like this:
 
 ![](https://imgur.com/7Ao9kJj.png)
 
@@ -67,13 +69,15 @@ export default function manageTree(treeSelectionRef, levelSelectionRef) {
     });
 ```    
 
+`treeSelected` and `getTreeLevel` are both implemented within the closure of the composition function.  This is the Composition API way.
+
 ## What I learned
 ### 1: Components are not objects - Composition API and setup
-With the composition API, there is a `setup` function that takes the place of a constructor for the component.  In `setup`, there is no reference to the component's 'this' object, nor a reference to the component itself.  So all the data that your component will ever need must be present in `setup`.
+With the composition API, `setup` takes the place of a constructor for the component.  In `setup`, there is no reference to the component's 'this' object, nor a reference to the component itself.  So all the data that your component will ever need must be present in `setup` closure.
 
-To provide seperation of concerns, you are expected to provide one or more 'composables', which is basically the logic of your component.  You pass the composable your reactive variables, and it returns functions and other reactive variables that your component needs.
+To provide seperation of concerns, you are expected to provide one or more 'composables', which is basically the logic for handling your components' data.  You pass the composable your reactive variables from the setup function, and it returns functions and other reactive variables that your component needs.
 
-To me, this sounded a lot like the adapter pattern (the composible adapts the data so it updates the UI at the right time, and adapts the UI changes to the store), so I called the directory 'adapters' instead of 'composibles' (also, composible is a strange word).
+To me, this sounded a lot like the adapter pattern (the composible adapts the data so it updates the UI at the right time, and adapts the UI changes to the server/persistent store), so I called the directory 'adapters' instead of 'composibles' (also, composible is a strange word).
 
 A component is just the reactive data that makes up the component, and the events that come from the DOM and other components.  If you are trying to make it into something else, you're doing it wrong and probably the logic you want belongs somewhere else.  Or maybe, the composition API is not for you.  I found [this nugget on SO:](https://stackoverflow.com/questions/64175377/using-this-in-lifecycle-hook-created-from-composition-api)
 
@@ -95,12 +99,12 @@ The 'any time' part is not quite true, because of the way references work.  (the
 if `proxyObject` is an array, for instance, it doesn't work to just say: 
 
 ``` javascript
-proxyObject = [] // wrong way
+proxyObject = [] // wrong way, reactivity is lost
 ```
 to clear the array.  You need to go: 
 
 ``` javascript
-proxyObject.splice(0) // right way
+proxyObject.splice(0) // right way, proxyObject remains reactive
 ```
 
 Likewise if you have a javascript object, you need to individually assign each key to a value.  If you just go `proxyObject = someOtherObject`, the proxy reference is lost.

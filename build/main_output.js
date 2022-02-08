@@ -11610,7 +11610,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.stdIntro {\r\n  font-size: 0.9rem;\r\n  margin-top: 0.5rem;\r\n  margin-bottom: 0.5rem;\n}\n.stdSubIntro {\r\n  font-size: 0.85rem;\r\n  padding: 0.5rem 0;\r\n  margin-bottom: 0;\r\n  font-style: italic;\r\n  color: #555;\r\n  line-height: 1.2;\n}\n.formSection {\r\n  padding: 0.5em;\r\n  border: 1px solid #e7e7e7;\r\n  border-top: none;\n}\n.itemPropertiesContainer {\r\n  flex-grow: 9;\r\n  flex-shrink: 1;\r\n  overflow: auto;\r\n  padding: 10px;\r\n  position: relative;\r\n  z-index: 1;\n}\n.itemPreferences {\r\n  border: solid 1px var(--items-bg-color);\r\n  display: flex;\r\n  flex-direction: column;\r\n  opacity: 1;\r\n  width: 300px;\n}\n.tabContent {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex-grow: 9;\r\n  flex-shrink: 0;\n}\n.nav-tabs > li {\r\n  float: left;\r\n  margin-bottom: -1px;\r\n  list-style: none;\r\n  position: relative;\n}\n.tab-content .tab-pane {\r\n  display: none;\r\n  visibility: hidden\n}\n.tab-content .tab-pane.active {\r\n  display: block;\r\n  visibility: visible\n}\n.nav-tabs > li > a {\r\n  margin-right: 2px;\r\n  line-height: 1.42857143;\r\n  border: 1px solid transparent;\r\n  border-radius: 4px 4px 0 0\n}\n.nav-tabs > li > a:hover {\r\n  border-color: #eee #eee #ddd\n}\nul {\r\n  padding: 0;\r\n  display: inline-block;\r\n  margin-block-end:0;\n}\n.nav-tabs .nav-link {\r\n    margin-bottom: -1px;\r\n    background: 0 0;\r\n    border: 1px solid transparent;\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\n}\n.nav-tabs .active .nav-link {\r\n    color: #495057;\r\n    background-color: #fff;\r\n    border-color: #dee2e6 #dee2e6 #fff;\r\n    text-decoration: none;\n}\n.nav-tabs > li > a {\r\n    position: relative;\r\n    display: block;\r\n    padding: 10px 15px;\n}\r\n", "",{"version":3,"sources":["webpack://./src/components/App.vue"],"names":[],"mappings":";AAiFA;EACE,iBAAiB;EACjB,kBAAkB;EAClB,qBAAqB;AACvB;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,gBAAgB;EAChB,kBAAkB;EAClB,WAAW;EACX,gBAAgB;AAClB;AACA;EACE,cAAc;EACd,yBAAyB;EACzB,gBAAgB;AAClB;AACA;EACE,YAAY;EACZ,cAAc;EACd,cAAc;EACd,aAAa;EACb,kBAAkB;EAClB,UAAU;AACZ;AACA;EACE,uCAAuC;EACvC,aAAa;EACb,sBAAsB;EACtB,UAAU;EACV,YAAY;AACd;AACA;EACE,aAAa;EACb,mBAAmB;EACnB,YAAY;EACZ,cAAc;AAChB;AACA;EACE,WAAW;EACX,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;AACpB;AACA;EACE,aAAa;EACb;AACF;AACA;EACE,cAAc;EACd;AACF;AACA;EACE,iBAAiB;EACjB,uBAAuB;EACvB,6BAA6B;EAC7B;AACF;AACA;EACE;AACF;AACA;EACE,UAAU;EACV,qBAAqB;EACrB,kBAAkB;AACpB;AACA;IACI,mBAAmB;IACnB,eAAe;IACf,6BAA6B;IAC7B,+BAA+B;IAC/B,gCAAgC;AACpC;AACA;IACI,cAAc;IACd,sBAAsB;IACtB,kCAAkC;IAClC,qBAAqB;AACzB;AACA;IACI,kBAAkB;IAClB,cAAc;IACd,kBAAkB;AACtB","sourcesContent":["<template>\r\n      <div class=\"tabContent\">\r\n  <div class=\"itemPreferences\">\r\n    <div class=\"itemPropertiesContainer\">\r\n      <p>This navigation control serves no purpose.</p>\r\n      <ul class=\"nav-tabs\">\r\n        <li class=\"nav-tab\" :class=\"{ active: tabASelected }\">\r\n          <a class=\"nav-link\" href @click.prevent=\"showTabA\">Tab A</a>\r\n        </li>\r\n        <li class=\"nav-item\" :class=\"{ active: tabBSelected }\">\r\n          <a class=\"nav-link\" href @click.prevent=\"showTabB\">Tab B</a>\r\n        </li>\r\n      </ul>\r\n      <div class=\"tab-content\">\r\n        <div class=\"formSection tab-pane\" :class=\"{ active: tabASelected }\">\r\n          <p class=\"stdSubIntro\">Pick a tree, then pick branches</p>\r\n          <treetop :treelist=\"treelist\" :domId=\"domId\" @tree-selected=\"treeSelected\"></treetop>\r\n          <div v-for=\"level in compLevels\" :key=\"level.id\">\r\n            <treeview\r\n              :items=\"level.items\"\r\n              :label=\"level.label\"\r\n              :id=\"level.id\"\r\n              :level=\"level.level\"\r\n              @level-selected=\"levelSelected\"\r\n              :domId=\"domId\"\r\n            >\r\n            </treeview>\r\n          </div>\r\n        </div>\r\n        <div class=\"formSection tab-pane\" :class=\"{ active: tabBSelected }\">\r\n          <p class=\"stdSubIntro\">Useless tabl here</p>\r\n        </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n<script>\r\nimport { ref, computed } from 'vue';\r\nimport { default as manageTree } from '../adapters/treeView';\r\nimport { default as treetop } from \"./treetop.vue\";\r\nimport { default as treeview } from \"./treeview.vue\";\r\nexport default {\r\n  components: { treetop, treeview },\r\n  props: {\r\n    selectedTree: String,\r\n    selectedLevel: Number,\r\n    treelist: Array,\r\n    domId: String, \r\n    compLevels: Array,\r\n    tabASelected: Boolean,\r\n    tabBSelected: Boolean,\r\n    selectedTab: Number,\r\n  },\r\n  setup(props) {\r\n    const selectedTree = ref('');\r\n    const selectedLevel = ref(-1);\r\n    const { compLevels, treelist } = manageTree(selectedTree, selectedLevel);\r\n    const domId = props.domId;\r\n    const selectedTab = ref(0);\r\n    const tabASelected = computed(() => selectedTab.value === 0);\r\n    const tabBSelected = computed(() => selectedTab.value === 1);\r\n    return { selectedTree, selectedLevel, treelist, domId, compLevels, tabASelected, tabBSelected, selectedTab };\r\n  },\r\n  methods: {\r\n    treeSelected(val) {\r\n      this.selectedTree = val.value;\r\n    },\r\n    showTabA() {\r\n      this.selectedTab = 0;\r\n    },\r\n    showTabB() {\r\n      this.selectedTab = 1;\r\n    },\r\n    levelSelected(val) {\r\n      this.selectedLevel = val.level;\r\n    },\r\n  },\r\n};\r\n</script>\r\n<style>\r\n.stdIntro {\r\n  font-size: 0.9rem;\r\n  margin-top: 0.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.stdSubIntro {\r\n  font-size: 0.85rem;\r\n  padding: 0.5rem 0;\r\n  margin-bottom: 0;\r\n  font-style: italic;\r\n  color: #555;\r\n  line-height: 1.2;\r\n}\r\n.formSection {\r\n  padding: 0.5em;\r\n  border: 1px solid #e7e7e7;\r\n  border-top: none;\r\n}\r\n.itemPropertiesContainer {\r\n  flex-grow: 9;\r\n  flex-shrink: 1;\r\n  overflow: auto;\r\n  padding: 10px;\r\n  position: relative;\r\n  z-index: 1;\r\n}\r\n.itemPreferences {\r\n  border: solid 1px var(--items-bg-color);\r\n  display: flex;\r\n  flex-direction: column;\r\n  opacity: 1;\r\n  width: 300px;\r\n}\r\n.tabContent {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex-grow: 9;\r\n  flex-shrink: 0;\r\n}\r\n.nav-tabs > li {\r\n  float: left;\r\n  margin-bottom: -1px;\r\n  list-style: none;\r\n  position: relative;\r\n}\r\n.tab-content .tab-pane {\r\n  display: none;\r\n  visibility: hidden\r\n}\r\n.tab-content .tab-pane.active {\r\n  display: block;\r\n  visibility: visible\r\n}\r\n.nav-tabs > li > a {\r\n  margin-right: 2px;\r\n  line-height: 1.42857143;\r\n  border: 1px solid transparent;\r\n  border-radius: 4px 4px 0 0\r\n}\r\n.nav-tabs > li > a:hover {\r\n  border-color: #eee #eee #ddd\r\n}\r\nul {\r\n  padding: 0;\r\n  display: inline-block;\r\n  margin-block-end:0;\r\n}\r\n.nav-tabs .nav-link {\r\n    margin-bottom: -1px;\r\n    background: 0 0;\r\n    border: 1px solid transparent;\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\r\n}\r\n.nav-tabs .active .nav-link {\r\n    color: #495057;\r\n    background-color: #fff;\r\n    border-color: #dee2e6 #dee2e6 #fff;\r\n    text-decoration: none;\r\n}\r\n.nav-tabs > li > a {\r\n    position: relative;\r\n    display: block;\r\n    padding: 10px 15px;\r\n}\r\n</style>"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.stdIntro {\r\n  font-size: 0.9rem;\r\n  margin-top: 0.5rem;\r\n  margin-bottom: 0.5rem;\n}\n.stdSubIntro {\r\n  font-size: 0.85rem;\r\n  padding: 0.5rem 0;\r\n  margin-bottom: 0;\r\n  font-style: italic;\r\n  color: #555;\r\n  line-height: 1.2;\n}\n.formSection {\r\n  padding: 0.5em;\r\n  border: 1px solid #e7e7e7;\r\n  border-top: none;\n}\n.itemPropertiesContainer {\r\n  flex-grow: 9;\r\n  flex-shrink: 1;\r\n  overflow: auto;\r\n  padding: 10px;\r\n  position: relative;\r\n  z-index: 1;\n}\n.itemPreferences {\r\n  border: solid 1px var(--items-bg-color);\r\n  display: flex;\r\n  flex-direction: column;\r\n  opacity: 1;\r\n  width: 300px;\n}\n.tabContent {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex-grow: 9;\r\n  flex-shrink: 0;\n}\n.nav-tabs > li {\r\n  float: left;\r\n  margin-bottom: -1px;\r\n  list-style: none;\r\n  position: relative;\n}\n.tab-content .tab-pane {\r\n  display: none;\r\n  visibility: hidden\n}\n.tab-content .tab-pane.active {\r\n  display: block;\r\n  visibility: visible\n}\n.nav-tabs > li > a {\r\n  margin-right: 2px;\r\n  line-height: 1.42857143;\r\n  border: 1px solid transparent;\r\n  border-radius: 4px 4px 0 0\n}\n.nav-tabs > li > a:hover {\r\n  border-color: #eee #eee #ddd\n}\nul {\r\n  padding: 0;\r\n  display: inline-block;\r\n  margin-block-end:0;\n}\n.nav-tabs .nav-link {\r\n    margin-bottom: -1px;\r\n    background: 0 0;\r\n    border: 1px solid transparent;\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\n}\n.nav-tabs .active .nav-link {\r\n    color: #495057;\r\n    background-color: #fff;\r\n    border-color: #dee2e6 #dee2e6 #fff;\r\n    text-decoration: none;\n}\n.nav-tabs > li > a {\r\n    position: relative;\r\n    display: block;\r\n    padding: 10px 15px;\n}\r\n", "",{"version":3,"sources":["webpack://./src/components/App.vue"],"names":[],"mappings":";AAoFA;EACE,iBAAiB;EACjB,kBAAkB;EAClB,qBAAqB;AACvB;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,gBAAgB;EAChB,kBAAkB;EAClB,WAAW;EACX,gBAAgB;AAClB;AACA;EACE,cAAc;EACd,yBAAyB;EACzB,gBAAgB;AAClB;AACA;EACE,YAAY;EACZ,cAAc;EACd,cAAc;EACd,aAAa;EACb,kBAAkB;EAClB,UAAU;AACZ;AACA;EACE,uCAAuC;EACvC,aAAa;EACb,sBAAsB;EACtB,UAAU;EACV,YAAY;AACd;AACA;EACE,aAAa;EACb,mBAAmB;EACnB,YAAY;EACZ,cAAc;AAChB;AACA;EACE,WAAW;EACX,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;AACpB;AACA;EACE,aAAa;EACb;AACF;AACA;EACE,cAAc;EACd;AACF;AACA;EACE,iBAAiB;EACjB,uBAAuB;EACvB,6BAA6B;EAC7B;AACF;AACA;EACE;AACF;AACA;EACE,UAAU;EACV,qBAAqB;EACrB,kBAAkB;AACpB;AACA;IACI,mBAAmB;IACnB,eAAe;IACf,6BAA6B;IAC7B,+BAA+B;IAC/B,gCAAgC;AACpC;AACA;IACI,cAAc;IACd,sBAAsB;IACtB,kCAAkC;IAClC,qBAAqB;AACzB;AACA;IACI,kBAAkB;IAClB,cAAc;IACd,kBAAkB;AACtB","sourcesContent":["<template>\r\n<sub><a href=\"https://github.com/AaronDavidNewman/vue3base\">Github </a> site.\r\n<a href=\"https://aarondavidnewman.github.io/vue3base/\">Readme</a> documentation</sub>\r\n<h2>This is a demo of the Vue3 Composition API</h2>\r\n      <div class=\"tabContent\">\r\n  <div class=\"itemPreferences\">\r\n    <div class=\"itemPropertiesContainer\">\r\n      <p>This navigation control serves no purpose.</p>\r\n      <ul class=\"nav-tabs\">\r\n        <li class=\"nav-tab\" :class=\"{ active: tabASelected }\">\r\n          <a class=\"nav-link\" href @click.prevent=\"showTabA\">Tab A</a>\r\n        </li>\r\n        <li class=\"nav-item\" :class=\"{ active: tabBSelected }\">\r\n          <a class=\"nav-link\" href @click.prevent=\"showTabB\">Tab B</a>\r\n        </li>\r\n      </ul>\r\n      <div class=\"tab-content\">\r\n        <div class=\"formSection tab-pane\" :class=\"{ active: tabASelected }\">\r\n          <p class=\"stdSubIntro\">Pick a tree, then pick branches</p>\r\n          <treetop :treelist=\"treelist\" :domId=\"domId\" @tree-selected=\"treeSelected\"></treetop>\r\n          <div v-for=\"level in compLevels\" :key=\"level.id\">\r\n            <treeview\r\n              :items=\"level.items\"\r\n              :label=\"level.label\"\r\n              :id=\"level.id\"\r\n              :level=\"level.level\"\r\n              @level-selected=\"levelSelected\"\r\n              :domId=\"domId\"\r\n            >\r\n            </treeview>\r\n          </div>\r\n        </div>\r\n        <div class=\"formSection tab-pane\" :class=\"{ active: tabBSelected }\">\r\n          <p class=\"stdSubIntro\">Useless tabl here</p>\r\n        </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n<script>\r\nimport { ref, computed } from 'vue';\r\nimport { default as manageTree } from '../adapters/treeView';\r\nimport { default as treetop } from \"./treetop.vue\";\r\nimport { default as treeview } from \"./treeview.vue\";\r\nexport default {\r\n  components: { treetop, treeview },\r\n  props: {\r\n    selectedTree: String,\r\n    selectedLevel: Number,\r\n    treelist: Array,\r\n    domId: String, \r\n    compLevels: Array,\r\n    tabASelected: Boolean,\r\n    tabBSelected: Boolean,\r\n    selectedTab: Number,\r\n  },\r\n  setup(props) {\r\n    const selectedTree = ref('');\r\n    const selectedLevel = ref(-1);\r\n    const { compLevels, treelist } = manageTree(selectedTree, selectedLevel);\r\n    const domId = props.domId;\r\n    const selectedTab = ref(0);\r\n    const tabASelected = computed(() => selectedTab.value === 0);\r\n    const tabBSelected = computed(() => selectedTab.value === 1);\r\n    return { selectedTree, selectedLevel, treelist, domId, compLevels, tabASelected, tabBSelected, selectedTab };\r\n  },\r\n  methods: {\r\n    treeSelected(val) {\r\n      this.selectedTree = val.value;\r\n    },\r\n    showTabA() {\r\n      this.selectedTab = 0;\r\n    },\r\n    showTabB() {\r\n      this.selectedTab = 1;\r\n    },\r\n    levelSelected(val) {\r\n      this.selectedLevel = val.level;\r\n    },\r\n  },\r\n};\r\n</script>\r\n<style>\r\n.stdIntro {\r\n  font-size: 0.9rem;\r\n  margin-top: 0.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.stdSubIntro {\r\n  font-size: 0.85rem;\r\n  padding: 0.5rem 0;\r\n  margin-bottom: 0;\r\n  font-style: italic;\r\n  color: #555;\r\n  line-height: 1.2;\r\n}\r\n.formSection {\r\n  padding: 0.5em;\r\n  border: 1px solid #e7e7e7;\r\n  border-top: none;\r\n}\r\n.itemPropertiesContainer {\r\n  flex-grow: 9;\r\n  flex-shrink: 1;\r\n  overflow: auto;\r\n  padding: 10px;\r\n  position: relative;\r\n  z-index: 1;\r\n}\r\n.itemPreferences {\r\n  border: solid 1px var(--items-bg-color);\r\n  display: flex;\r\n  flex-direction: column;\r\n  opacity: 1;\r\n  width: 300px;\r\n}\r\n.tabContent {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex-grow: 9;\r\n  flex-shrink: 0;\r\n}\r\n.nav-tabs > li {\r\n  float: left;\r\n  margin-bottom: -1px;\r\n  list-style: none;\r\n  position: relative;\r\n}\r\n.tab-content .tab-pane {\r\n  display: none;\r\n  visibility: hidden\r\n}\r\n.tab-content .tab-pane.active {\r\n  display: block;\r\n  visibility: visible\r\n}\r\n.nav-tabs > li > a {\r\n  margin-right: 2px;\r\n  line-height: 1.42857143;\r\n  border: 1px solid transparent;\r\n  border-radius: 4px 4px 0 0\r\n}\r\n.nav-tabs > li > a:hover {\r\n  border-color: #eee #eee #ddd\r\n}\r\nul {\r\n  padding: 0;\r\n  display: inline-block;\r\n  margin-block-end:0;\r\n}\r\n.nav-tabs .nav-link {\r\n    margin-bottom: -1px;\r\n    background: 0 0;\r\n    border: 1px solid transparent;\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\r\n}\r\n.nav-tabs .active .nav-link {\r\n    color: #495057;\r\n    background-color: #fff;\r\n    border-color: #dee2e6 #dee2e6 #fff;\r\n    text-decoration: none;\r\n}\r\n.nav-tabs > li > a {\r\n    position: relative;\r\n    display: block;\r\n    padding: 10px 15px;\r\n}\r\n</style>"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12252,78 +12252,89 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
 
 
-const _hoisted_1 = { class: "tabContent" }
-const _hoisted_2 = { class: "itemPreferences" }
-const _hoisted_3 = { class: "itemPropertiesContainer" }
-const _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "This navigation control serves no purpose.", -1 /* HOISTED */)
-const _hoisted_5 = { class: "nav-tabs" }
-const _hoisted_6 = { class: "tab-content" }
-const _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", { class: "stdSubIntro" }, "Pick a tree, then pick branches", -1 /* HOISTED */)
-const _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", { class: "stdSubIntro" }, "Useless tabl here", -1 /* HOISTED */)
-const _hoisted_9 = [
-  _hoisted_8
+const _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("sub", null, [
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", { href: "https://github.com/AaronDavidNewman/vue3base" }, "Github "),
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" site. "),
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", { href: "https://aarondavidnewman.github.io/vue3base/" }, "Readme"),
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" documentation")
+], -1 /* HOISTED */)
+const _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "This is a demo of the Vue3 Composition API", -1 /* HOISTED */)
+const _hoisted_3 = { class: "tabContent" }
+const _hoisted_4 = { class: "itemPreferences" }
+const _hoisted_5 = { class: "itemPropertiesContainer" }
+const _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "This navigation control serves no purpose.", -1 /* HOISTED */)
+const _hoisted_7 = { class: "nav-tabs" }
+const _hoisted_8 = { class: "tab-content" }
+const _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", { class: "stdSubIntro" }, "Pick a tree, then pick branches", -1 /* HOISTED */)
+const _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", { class: "stdSubIntro" }, "Useless tabl here", -1 /* HOISTED */)
+const _hoisted_11 = [
+  _hoisted_10
 ]
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_treetop = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("treetop")
   const _component_treeview = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("treeview")
 
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [
-        _hoisted_4,
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_5, [
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
-            class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-tab", { active: $setup.tabASelected }])
-          }, [
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-              class: "nav-link",
-              href: "",
-              onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => ($options.showTabA && $options.showTabA(...args)), ["prevent"]))
-            }, "Tab A")
-          ], 2 /* CLASS */),
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
-            class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item", { active: $setup.tabBSelected }])
-          }, [
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-              class: "nav-link",
-              href: "",
-              onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => ($options.showTabB && $options.showTabB(...args)), ["prevent"]))
-            }, "Tab B")
-          ], 2 /* CLASS */)
-        ]),
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-            class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["formSection tab-pane", { active: $setup.tabASelected }])
-          }, [
-            _hoisted_7,
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_treetop, {
-              treelist: $setup.treelist,
-              domId: $setup.domId,
-              onTreeSelected: $options.treeSelected
-            }, null, 8 /* PROPS */, ["treelist", "domId", "onTreeSelected"]),
-            ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.compLevels, (level) => {
-              return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-                key: level.id
-              }, [
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_treeview, {
-                  items: level.items,
-                  label: level.label,
-                  id: level.id,
-                  level: level.level,
-                  onLevelSelected: $options.levelSelected,
-                  domId: $setup.domId
-                }, null, 8 /* PROPS */, ["items", "label", "id", "level", "onLevelSelected", "domId"])
-              ]))
-            }), 128 /* KEYED_FRAGMENT */))
-          ], 2 /* CLASS */),
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-            class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["formSection tab-pane", { active: $setup.tabBSelected }])
-          }, _hoisted_9, 2 /* CLASS */)
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [
+    _hoisted_1,
+    _hoisted_2,
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [
+          _hoisted_6,
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_7, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-tab", { active: $setup.tabASelected }])
+            }, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+                class: "nav-link",
+                href: "",
+                onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => ($options.showTabA && $options.showTabA(...args)), ["prevent"]))
+              }, "Tab A")
+            ], 2 /* CLASS */),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item", { active: $setup.tabBSelected }])
+            }, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+                class: "nav-link",
+                href: "",
+                onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => ($options.showTabB && $options.showTabB(...args)), ["prevent"]))
+              }, "Tab B")
+            ], 2 /* CLASS */)
+          ]),
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["formSection tab-pane", { active: $setup.tabASelected }])
+            }, [
+              _hoisted_9,
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_treetop, {
+                treelist: $setup.treelist,
+                domId: $setup.domId,
+                onTreeSelected: $options.treeSelected
+              }, null, 8 /* PROPS */, ["treelist", "domId", "onTreeSelected"]),
+              ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.compLevels, (level) => {
+                return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+                  key: level.id
+                }, [
+                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_treeview, {
+                    items: level.items,
+                    label: level.label,
+                    id: level.id,
+                    level: level.level,
+                    onLevelSelected: $options.levelSelected,
+                    domId: $setup.domId
+                  }, null, 8 /* PROPS */, ["items", "label", "id", "level", "onLevelSelected", "domId"])
+                ]))
+              }), 128 /* KEYED_FRAGMENT */))
+            ], 2 /* CLASS */),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["formSection tab-pane", { active: $setup.tabBSelected }])
+            }, _hoisted_11, 2 /* CLASS */)
+          ])
         ])
       ])
     ])
-  ]))
+  ], 64 /* STABLE_FRAGMENT */))
 }
 
 /***/ }),

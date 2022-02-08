@@ -1,8 +1,11 @@
 <template>
+<sub><a href="https://github.com/AaronDavidNewman/vue3base">Github </a> site.
+<a href="https://aarondavidnewman.github.io/vue3base/">Readme</a> documentation</sub>
+<h2>This is a demo of the Vue3 Composition API</h2>
       <div class="tabContent">
   <div class="itemPreferences">
     <div class="itemPropertiesContainer">
-      <p>This navigation control serves no purpose.</p>
+      <p>The select boxes implement a tree-like control.  This navigation tab serves no purpose.</p>
       <ul class="nav-tabs">
         <li class="nav-tab" :class="{ active: tabASelected }">
           <a class="nav-link" href @click.prevent="showTabA">Tab A</a>
