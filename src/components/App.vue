@@ -40,7 +40,7 @@
 </template>
 <script>
 import { ref, computed } from 'vue';
-import { default as manageTree } from '../adapters/treeView';
+import { default as manageTree } from '../composables/treeView';
 import { default as treetop } from "./treetop.vue";
 import { default as treeview } from "./treeview.vue";
 export default {

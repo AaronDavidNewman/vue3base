@@ -2,8 +2,8 @@
 ## VUE3 SFC component example (using webpack)
 
 I created this project with 2 goals in mind: 
-1. create a VUE3+SFC+webpack template to use for other projects
-2. create a complete implementation of a VUE component using the composition API, in something resembling a real-world situation
+1. create a VUE3 + SFC+webpack template to use for other projects
+2. create a complete implementation of a VUE component using the composition API, for something resembling a real-world component
 
 The components simulate a tree selection, by using a series of 'select' controls that represent levels of the tree.  Choosing a parent populates child branches and enables more lists.  You can demo the component [here](https://aarondavidnewman.github.io/vue3base/src/index.html)
 
@@ -72,19 +72,22 @@ export default function manageTree(treeSelectionRef, levelSelectionRef) {
 `treeSelected` and `getTreeLevel` are both implemented within the closure of the composition function.  This is the Composition API way.
 
 ## What I learned
-### 1: Components are not objects - Composition API and setup
-With the composition API, `setup` takes the place of a constructor for the component.  In `setup`, there is no reference to the component's 'this' object, nor a reference to the component itself.  So all the data that your component will ever need must be present in `setup` closure.
+### 1: Composition API and Options API are different - use one or the other
+_Update_: VUE3 is now the official default version of VUE, and much of the ambiguity mentioned below between Options API and Composition API has been clarified.
 
-To provide seperation of concerns, you are expected to provide one or more 'composables', which is basically the logic for handling your components' data.  You pass the composable your reactive variables from the setup function, and it returns functions and other reactive variables that your component needs.
+VUE exposes 2 APIs to manage the component lifecycle: options API and composition API.  The primary difference is how the component instances are treated.  In the Options API, the component has a 'this' object, and all the data, props, watches, and computed values are a part of the component instance.  So the options is more 'object oriented', in the sense that it treats the component like instances of a javascript class.
 
-To me, this sounded a lot like the adapter pattern (the composible adapts the data so it updates the UI at the right time, and adapts the UI changes to the server/persistent store), so I called the directory 'adapters' instead of 'composibles' (also, composible is a strange word).
+The primary drawback of this approach is that logic concerning the component's data becomes muddled with the component UI logic.  In the tree example of this project, the logic handling the tree structure would need to be a part of the component.  This makes the logic and UI more tightly bound which reduces re-use and mixes the concerns, where we'd like to separate them.
 
-A component is just the reactive data that makes up the component, and the events that come from the DOM and other components.  If you are trying to make it into something else, you're doing it wrong and probably the logic you want belongs somewhere else.  Or maybe, the composition API is not for you.  I found [this nugget on SO:](https://stackoverflow.com/questions/64175377/using-this-in-lifecycle-hook-created-from-composition-api)
+As the [documentation](https://vuejs.org/guide/reusability/composables.html#async-state-example)  points out, the `setup` function takes the place of a constructor for the component.  It does not expose `this` pointer, nor do any of the lifecycle event hooks.  The component uses the reactive data it needs for it's template logic, and passes other functions to a `composable` - a function that manages the logic of the component's data.  Any watchers or computed properties should be set right in the setup function.
 
+To me, this sounded a lot like the adapter pattern (the composable 'adapts' the data to the form the UI expects, and adapts the UI changes to the server/persistent store).  I intitially called the composable directory 'adapters', but now that I see the official documentation has been updated, I switched it back to 'composables'.
+
+I found [this nugget on SO:](https://stackoverflow.com/questions/64175377/using-this-in-lifecycle-hook-created-from-composition-api) from some of the creators of VUE (not sure if this is a Evan Yue quote or not).
 
 > If we bind the lifecycle hooks in setup to the instance, it would only cause confusion and encourage antipatterns. You make a choice, options api, or composition api. If you choose composition api, there is nothing interesting for you on `this`. Everything is contained in the setup closure. If we added it, typescript inference would be harder to implement, and people will start using the options api in combination with it.
 
-Note that this only refers to the setup function and composition API.  You can still do it the old way (called `Options API').  Also, 'this' is available to call methods and reference data in methods called from DOM events, or events generated from other components.  But it is a bad idea to combine options API and composition API.  Forever will it rule your destiny, etc.  This is also something not clear from the Guide - most of the examples are options API.
+One sort of annoying thing, or at least something to remember, is that `this` is still used in methods, and all template variables have an implied `this`.  So a prop called `foo` in setup is `this.foo` in the object.  In a way though, this helps to remember about [shallow unwrapping](https://vuejs.org/api/reactivity-core.html#ref) which I talk about below.
 
 ### 2: Reactivity can be a little fragile
 Tool kits like React, Angular, and Vue are made possible by the `Proxy` object built into Javascript.  I never even knew about this thing!  But it is pretty interesting. If you go:
@@ -94,9 +97,45 @@ const proxyObject = new Proxy(baseObject, myHandler);
 ```
 you can return `proxyObject` in place of baseObject.  Any time `proxyObject` is referenced or changed, `myHandler` is notified of the change to `baseObject`.  This allows Vue to bind DOM elements to javascript variables.  It also allows values mutated in parent components to be updated in child components.
 
-The 'any time' part is not quite true, because of the way references work.  (there is a name for this: "reactivity loss" )
 
-if `proxyObject` is an array, for instance, it doesn't work to just say: 
+### 3. Reactivity is not limited to components.
+It is possible to explicitly create refs to variables created outside the context of a component.  In fact, this is a key part of the composition pattern.  You can create reactive data and send it into your components, and use it to communicate with it by attaching watchers to it.  Or the components can indicate UI changes through the reactive data.
+
+The key to understanding VUE 3 is to understand how to use the reactive API.  
+
+1. use `ref` or `reactive` to make variables you declare yourself reactive.
+2. use `reactive` to make an object or array reactive, `ref` to make a literal (a number, string, or boolean) reactive.  Arrays can use either `ref` or `reactive` but I prefer the `reactive` syntax.
+3. use `toRef` to make a field of a reactive object reactive.  
+
+If you have:
+
+``` javascript
+  const foo = reactive({
+      bar: 'cow',
+      orb: 'dog'
+  });
+```
+
+`foo` is reactive, but `bar` and `orb` are _not_ reactive.  This surprised me at first.  So if you want to `watch` them only, you would go:
+
+``` javascript
+   const reactBar = toRef(foo.bar);
+   ...
+   watch(reactBar, (value) => {
+       // do stuff when foo.bar changes
+   });
+```
+
+**Note and Warning** about `reference unwrapping`:
+If you use `ref` or `toRef`, you reference the value of the variable `foo` with `foo.value`.  In templates and in methods (any context where `this` is implied), the variable is reference as `this.foo`, _not_ `this.foo.value`.  
+
+Fields within objects created with `reactive` are always `obj.foo`, and not `obj.foo.value`.   
+
+### 4. Reactivity can be fragile
+
+There's even a term for it - 'loss of reactivity'
+
+if `proxyObject` is a reactive array, for instance, it doesn't work to just say: 
 
 ``` javascript
 proxyObject = [] // wrong way, reactivity is lost
@@ -109,17 +148,7 @@ proxyObject.splice(0) // right way, proxyObject remains reactive
 
 Likewise if you have a javascript object, you need to individually assign each key to a value.  If you just go `proxyObject = someOtherObject`, the proxy reference is lost.
 
-### 3. Making your data reactive
-The key to understanding VUE 3 is to understand how to use the  reactive API.  It is possible to explicitly create refs to variables created outside the context of a component.  
-
-1. use `toRef` to make a field of an object passed into `setup` reactive.
-2. use `ref` or `reactive` to make variables you declare yourself reactive.
-3. use `reactive` to make an object or array reactive, `ref` to make a literal (a number, string, or boolean) reactive.  Arrays can use either `ref` or `reactive` but I prefer the `reactive` syntax.
-
-**Note and Warning** about `reference unwrapping`:
-If you use `ref` or `toRef`, you reference the value of the variable `foo` with `foo.value`.  However, if this is a prop, in templates and in methods (any context where `this` is implied), the variable is reference as `this.foo`, _not_ `this.foo.value`.  
-
-Fields within objects created with `reactive` are still `obj.foo`, and not `obj.foo.value`.   Just remember that you can't go `obj = otherObj` - you will lose the reactivity of `obj`.  Instead, assign the object key values: from `obj[field1] = otherObj[field1]`.
+Just remember that you can't go `obj = otherObj` - you will lose the reactivity of `obj`.  Instead, assign the object key values: from `obj[field1] = otherObj[field1]`.
 
 If you want to make a non-reactive value passed in as a prop reactive, you can use 'toRef':
 
@@ -173,9 +202,9 @@ When there are no options in a 'select' list, I disable the element based on a v
 
 ### 6: Tools
 
-WRT building apps using webpack, you need the following tools.  I know it's all in the package.json, but it would have helped me if I knew what is needed and why, and what they do.
+You can just `npm install` this project, but it would have helped me if I knew which tools are needed and why, and what they do.  
 
-NOTE: You can just `npm install` for this project, you don't need to install these individually.  This is just for information.
+If you are using [Vite](https://vitejs.dev/) or [Vue CLI](https://cli.vuejs.org/) to generate your configuration, know that it will generate dependencies for all these tools, including a webpack config, whether you like to be aware of it or not.
 
 *  `vue@next` will give you VUE3.  You get VUE2 without the @next
 *  `vue-loader@next` give you the vue-loader for VUE3.  Must be > 16
@@ -187,7 +216,8 @@ None of the VUE files need to be included in the build directly.  As long as the
 
 Note that if you are using vue-cli and similar tools to generate your configuration, it is generating a tsconfig and webpack config, whether you are aware of it or not.
 
-### To build:
+### To build
+Assuming you have [node/npm](https://nodejs.org/en/download/) and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed already...
 
 ```
 git clone https://github.com/AaronDavidNewman/vue3base.git
