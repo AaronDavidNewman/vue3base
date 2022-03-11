@@ -11610,61 +11610,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.stdIntro {\r\n  font-size: 0.9rem;\r\n  margin-top: 0.5rem;\r\n  margin-bottom: 0.5rem;\n}\n.stdSubIntro {\r\n  font-size: 0.85rem;\r\n  padding: 0.5rem 0;\r\n  margin-bottom: 0;\r\n  font-style: italic;\r\n  color: #555;\r\n  line-height: 1.2;\n}\n.formSection {\r\n  padding: 0.5em;\r\n  border: 1px solid #e7e7e7;\r\n  border-top: none;\n}\n.itemPropertiesContainer {\r\n  flex-grow: 9;\r\n  flex-shrink: 1;\r\n  overflow: auto;\r\n  padding: 10px;\r\n  position: relative;\r\n  z-index: 1;\n}\n.itemPreferences {\r\n  border: solid 1px var(--items-bg-color);\r\n  display: flex;\r\n  flex-direction: column;\r\n  opacity: 1;\r\n  width: 300px;\n}\n.tabContent {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex-grow: 9;\r\n  flex-shrink: 0;\n}\n.nav-tabs > li {\r\n  float: left;\r\n  margin-bottom: -1px;\r\n  list-style: none;\r\n  position: relative;\n}\n.tab-content .tab-pane {\r\n  display: none;\r\n  visibility: hidden\n}\n.tab-content .tab-pane.active {\r\n  display: block;\r\n  visibility: visible\n}\n.nav-tabs > li > a {\r\n  margin-right: 2px;\r\n  line-height: 1.42857143;\r\n  border: 1px solid transparent;\r\n  border-radius: 4px 4px 0 0\n}\n.nav-tabs > li > a:hover {\r\n  border-color: #eee #eee #ddd\n}\nul {\r\n  padding: 0;\r\n  display: inline-block;\r\n  margin-block-end:0;\n}\n.nav-tabs .nav-link {\r\n    margin-bottom: -1px;\r\n    background: 0 0;\r\n    border: 1px solid transparent;\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\n}\n.nav-tabs .active .nav-link {\r\n    color: #495057;\r\n    background-color: #fff;\r\n    border-color: #dee2e6 #dee2e6 #fff;\r\n    text-decoration: none;\n}\n.nav-tabs > li > a {\r\n    position: relative;\r\n    display: block;\r\n    padding: 10px 15px;\n}\r\n", "",{"version":3,"sources":["webpack://./src/components/App.vue"],"names":[],"mappings":";AAoFA;EACE,iBAAiB;EACjB,kBAAkB;EAClB,qBAAqB;AACvB;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,gBAAgB;EAChB,kBAAkB;EAClB,WAAW;EACX,gBAAgB;AAClB;AACA;EACE,cAAc;EACd,yBAAyB;EACzB,gBAAgB;AAClB;AACA;EACE,YAAY;EACZ,cAAc;EACd,cAAc;EACd,aAAa;EACb,kBAAkB;EAClB,UAAU;AACZ;AACA;EACE,uCAAuC;EACvC,aAAa;EACb,sBAAsB;EACtB,UAAU;EACV,YAAY;AACd;AACA;EACE,aAAa;EACb,mBAAmB;EACnB,YAAY;EACZ,cAAc;AAChB;AACA;EACE,WAAW;EACX,mBAAmB;EACnB,gBAAgB;EAChB,kBAAkB;AACpB;AACA;EACE,aAAa;EACb;AACF;AACA;EACE,cAAc;EACd;AACF;AACA;EACE,iBAAiB;EACjB,uBAAuB;EACvB,6BAA6B;EAC7B;AACF;AACA;EACE;AACF;AACA;EACE,UAAU;EACV,qBAAqB;EACrB,kBAAkB;AACpB;AACA;IACI,mBAAmB;IACnB,eAAe;IACf,6BAA6B;IAC7B,+BAA+B;IAC/B,gCAAgC;AACpC;AACA;IACI,cAAc;IACd,sBAAsB;IACtB,kCAAkC;IAClC,qBAAqB;AACzB;AACA;IACI,kBAAkB;IAClB,cAAc;IACd,kBAAkB;AACtB","sourcesContent":["<template>\r\n<sub><a href=\"https://github.com/AaronDavidNewman/vue3base\">Github </a> site.\r\n<a href=\"https://aarondavidnewman.github.io/vue3base/\">Readme</a> documentation</sub>\r\n<h2>This is a demo of the Vue3 Composition API</h2>\r\n      <div class=\"tabContent\">\r\n  <div class=\"itemPreferences\">\r\n    <div class=\"itemPropertiesContainer\">\r\n      <p>The select boxes implement a tree-like control.  This navigation tab serves no purpose.</p>\r\n      <ul class=\"nav-tabs\">\r\n        <li class=\"nav-tab\" :class=\"{ active: tabASelected }\">\r\n          <a class=\"nav-link\" href @click.prevent=\"showTabA\">Tab A</a>\r\n        </li>\r\n        <li class=\"nav-item\" :class=\"{ active: tabBSelected }\">\r\n          <a class=\"nav-link\" href @click.prevent=\"showTabB\">Tab B</a>\r\n        </li>\r\n      </ul>\r\n      <div class=\"tab-content\">\r\n        <div class=\"formSection tab-pane\" :class=\"{ active: tabASelected }\">\r\n          <p class=\"stdSubIntro\">Pick a tree, then pick branches</p>\r\n          <treetop :treelist=\"treelist\" :domId=\"domId\" @tree-selected=\"treeSelected\"></treetop>\r\n          <div v-for=\"level in compLevels\" :key=\"level.id\">\r\n            <treeview\r\n              :items=\"level.items\"\r\n              :label=\"level.label\"\r\n              :id=\"level.id\"\r\n              :level=\"level.level\"\r\n              @level-selected=\"levelSelected\"\r\n              :domId=\"domId\"\r\n            >\r\n            </treeview>\r\n          </div>\r\n        </div>\r\n        <div class=\"formSection tab-pane\" :class=\"{ active: tabBSelected }\">\r\n          <p class=\"stdSubIntro\">Useless tabl here</p>\r\n        </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n<script>\r\nimport { ref, computed } from 'vue';\r\nimport { default as manageTree } from '../composables/treeView';\r\nimport { default as treetop } from \"./treetop.vue\";\r\nimport { default as treeview } from \"./treeview.vue\";\r\nexport default {\r\n  components: { treetop, treeview },\r\n  props: {\r\n    selectedTree: String,\r\n    selectedLevel: Number,\r\n    treelist: Array,\r\n    domId: String, \r\n    compLevels: Array,\r\n    tabASelected: Boolean,\r\n    tabBSelected: Boolean,\r\n    selectedTab: Number,\r\n  },\r\n  setup(props) {\r\n    const selectedTree = ref('');\r\n    const selectedLevel = ref(-1);\r\n    const { compLevels, treelist } = manageTree(selectedTree, selectedLevel);\r\n    const domId = props.domId;\r\n    const selectedTab = ref(0);\r\n    const tabASelected = computed(() => selectedTab.value === 0);\r\n    const tabBSelected = computed(() => selectedTab.value === 1);\r\n    return { selectedTree, selectedLevel, treelist, domId, compLevels, tabASelected, tabBSelected, selectedTab };\r\n  },\r\n  methods: {\r\n    treeSelected(val) {\r\n      this.selectedTree = val.value;\r\n    },\r\n    showTabA() {\r\n      this.selectedTab = 0;\r\n    },\r\n    showTabB() {\r\n      this.selectedTab = 1;\r\n    },\r\n    levelSelected(val) {\r\n      this.selectedLevel = val.level;\r\n    },\r\n  },\r\n};\r\n</script>\r\n<style>\r\n.stdIntro {\r\n  font-size: 0.9rem;\r\n  margin-top: 0.5rem;\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.stdSubIntro {\r\n  font-size: 0.85rem;\r\n  padding: 0.5rem 0;\r\n  margin-bottom: 0;\r\n  font-style: italic;\r\n  color: #555;\r\n  line-height: 1.2;\r\n}\r\n.formSection {\r\n  padding: 0.5em;\r\n  border: 1px solid #e7e7e7;\r\n  border-top: none;\r\n}\r\n.itemPropertiesContainer {\r\n  flex-grow: 9;\r\n  flex-shrink: 1;\r\n  overflow: auto;\r\n  padding: 10px;\r\n  position: relative;\r\n  z-index: 1;\r\n}\r\n.itemPreferences {\r\n  border: solid 1px var(--items-bg-color);\r\n  display: flex;\r\n  flex-direction: column;\r\n  opacity: 1;\r\n  width: 300px;\r\n}\r\n.tabContent {\r\n  display: flex;\r\n  flex-direction: row;\r\n  flex-grow: 9;\r\n  flex-shrink: 0;\r\n}\r\n.nav-tabs > li {\r\n  float: left;\r\n  margin-bottom: -1px;\r\n  list-style: none;\r\n  position: relative;\r\n}\r\n.tab-content .tab-pane {\r\n  display: none;\r\n  visibility: hidden\r\n}\r\n.tab-content .tab-pane.active {\r\n  display: block;\r\n  visibility: visible\r\n}\r\n.nav-tabs > li > a {\r\n  margin-right: 2px;\r\n  line-height: 1.42857143;\r\n  border: 1px solid transparent;\r\n  border-radius: 4px 4px 0 0\r\n}\r\n.nav-tabs > li > a:hover {\r\n  border-color: #eee #eee #ddd\r\n}\r\nul {\r\n  padding: 0;\r\n  display: inline-block;\r\n  margin-block-end:0;\r\n}\r\n.nav-tabs .nav-link {\r\n    margin-bottom: -1px;\r\n    background: 0 0;\r\n    border: 1px solid transparent;\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\r\n}\r\n.nav-tabs .active .nav-link {\r\n    color: #495057;\r\n    background-color: #fff;\r\n    border-color: #dee2e6 #dee2e6 #fff;\r\n    text-decoration: none;\r\n}\r\n.nav-tabs > li > a {\r\n    position: relative;\r\n    display: block;\r\n    padding: 10px 15px;\r\n}\r\n</style>"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css":
-/*!********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css ***!
-  \********************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.tabOpen-Items select.astAttrSelect {\r\n    min-height: 2em;\n}\n.itemPropertiesContainer select{\r\n  max-width: 100%;\r\n  min-width: 90%;\r\n  width: 100%;\r\n  min-height: 2em;\n}\r\n", "",{"version":3,"sources":["webpack://./src/components/treetop.vue"],"names":[],"mappings":";AA0CA;IACI,eAAe;AACnB;AACA;EACE,eAAe;EACf,cAAc;EACd,WAAW;EACX,eAAe;AACjB","sourcesContent":["<template>\r\n  <select v-bind:id=\"uniqueId\" @change=\"selected\" class=\"astAttrSelect\">\r\n    <option value=\"\" style=\"display: none\">Select a tree</option>\r\n    <option v-for=\"tree in treelist\" :key=\"tree.id\" v-bind:value=\"tree.id\">\r\n      {{ tree.label }}\r\n    </option>\r\n  </select>\r\n</template>\r\n<script>\r\nimport { defineComponent } from \"vue\";\r\n// import { default as treeview } from \"./treeview.vue\";\r\nexport default defineComponent({\r\n  //   components: { treeview },\r\n  props: {\r\n    treelist: Array,\r\n    domId: String\r\n  },\r\n  setup(props) {\r\n    return {\r\n      treelist: props.treelist,\r\n    };\r\n  },\r\n  data() {\r\n    return { currentTree: \"\" };\r\n  },\r\n  emits: [\"tree-selected\"],\r\n  computed: {\r\n    uniqueId() {\r\n      return this.domId + '-chooser';\r\n    }\r\n  },\r\n  methods: {\r\n    selected(ev) {\r\n      this.currentTree = ev.currentTarget.value;\r\n      this.$emit(\"tree-selected\", { value: this.currentTree });\r\n    },\r\n  },\r\n});\r\n</script>\r\n\r\n\r\n<style>\r\n.tabOpen-Items select.astAttrSelect {\r\n    min-height: 2em;\r\n}\r\n.itemPropertiesContainer select{\r\n  max-width: 100%;\r\n  min-width: 90%;\r\n  width: 100%;\r\n  min-height: 2em;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css":
-/*!*********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css ***!
-  \*********************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form-group[data-v-0f9c21d3] {\r\n  margin-bottom: 15px;\n}\n.form-group-label[data-v-0f9c21d3] {\r\n  display: inline-block;\r\n  min-width: 49%;\r\n  margin-bottom: 3px;\n}\n.itemPropertiesContainer select[data-v-0f9c21d3]{\r\n  max-width: 100%;\r\n  min-width: 90%;\r\n  width: 100%;\r\n  min-height: 2em;\n}\n.itemPreferences label[data-v-0f9c21d3] {\r\n  display: inline-block;\r\n  min-width: 49%;\r\n  margin-bottom: 3px;\n}\r\n", "",{"version":3,"sources":["webpack://./src/components/treeview.vue"],"names":[],"mappings":";AAmDA;EACE,mBAAmB;AACrB;AACA;EACE,qBAAqB;EACrB,cAAc;EACd,kBAAkB;AACpB;AACA;EACE,eAAe;EACf,cAAc;EACd,WAAW;EACX,eAAe;AACjB;AACA;EACE,qBAAqB;EACrB,cAAc;EACd,kBAAkB;AACpB","sourcesContent":["<template>\r\n  <div class=\"form-group form-group-constrained\">\r\n    <label class=\"form-group-label\" v-bind:for=\"uniqueId\"> {{ label }} </label>\r\n    <select v-bind:id=\"uniqueId\" @change=\"selected\" :disabled=\"isDisabled\">\r\n      <option value=\"default\" style=\"display: none\">Select a {{ label }}</option>\r\n      <option v-for=\"item in items\" :key=\"item.label\" v-bind:value=\"item.id\">\r\n        {{ item.label }}\r\n      </option>\r\n    </select>\r\n  </div>\r\n</template>\r\n<script>\r\nimport { defineComponent } from \"vue\";\r\nexport default defineComponent({\r\n  name: \"treeview\",\r\n  setup(props) {\r\n    const id = props.id;\r\n    const label = props.label;\r\n    const items = props.items;\r\n    const level = props.level;\r\n    const domId = props.domId;\r\n    return { id, label, items, level, domId };\r\n  },\r\n  data() {\r\n    return { currentValue: \"\" };\r\n  },\r\n  emits: ['level-selected'],\r\n  props: {\r\n    id: String,\r\n    label: String,\r\n    items: Array,\r\n    level: Number,\r\n    domId: String\r\n  },\r\n  computed: {\r\n    isDisabled() {\r\n      return this.items.length < 1;\r\n    },\r\n    uniqueId() {\r\n      return this.domId + '-' + this.level;\r\n    }\r\n  },\r\n  methods: {\r\n    selected(ev) {\r\n      this.currentValue = ev.currentTarget.value;\r\n      this.$emit(\"level-selected\", { value: this.currentValue, level: this.level });\r\n    },\r\n  },\r\n});\r\n</script>\r\n<style scoped>\r\n.form-group {\r\n  margin-bottom: 15px;\r\n}\r\n.form-group-label {\r\n  display: inline-block;\r\n  min-width: 49%;\r\n  margin-bottom: 3px;\r\n}\r\n.itemPropertiesContainer select{\r\n  max-width: 100%;\r\n  min-width: 90%;\r\n  width: 100%;\r\n  min-height: 2em;\r\n}\r\n.itemPreferences label {\r\n  display: inline-block;\r\n  min-width: 49%;\r\n  margin-bottom: 3px;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nselect {\r\n  margin-top: 10px;\r\n  margin-left: 5px;\n}\noption {\r\n   width: 300px;\n}\r\n", "",{"version":3,"sources":["webpack://./src/components/App.vue"],"names":[],"mappings":";AA4DA;EACE,gBAAgB;EAChB,gBAAgB;AAClB;AACA;GACG,YAAY;AACf","sourcesContent":["<template>\r\n<div>\r\n<sub><a href=\"https://github.com/AaronDavidNewman/vue3base\">Github </a> site.\r\n<a href=\"https://aarondavidnewman.github.io/vue3base/\">Readme</a> documentation</sub>\r\n</div>\r\n<div>\r\n          <select v-model='selectedList' >\r\n            <option value=\"\" style=\"display: none\">Select a list</option>\r\n            <option v-for=\"list in lists\" :key=\"list\" v-bind:value=\"list\"> {{ list }}  </option>\r\n          </select>\r\n          <div><h2>{{ selectedList }} </h2></div>\r\n          <select v-model=\"selectedItem\">\r\n            <option value=\"\" style=\"display: none\">Select an item</option>\r\n            <option v-for=\"item in selectedItems\" :key=\"item\" v-bind:value=\"item\">  {{ item }}  </option>\r\n          </select>\r\n          <div><h2>{{ selectedItem }} count {{ selectedItemCount }} </h2></div>\r\n          </div>\r\n</template>\r\n<script>\r\nimport { ref, watch } from 'vue';\r\n\r\nexport default {\r\n  setup() {\r\n    const listData = {\r\n      \"list1\": [\"value1-1\", \"value1-2\", \"value1-3\"],\r\n      \"list2\": [\"value2-1\"]\r\n    }\r\n    const lists = [\"list1\", \"list2\"];\r\n    const selectedList = ref('');\r\n    const selectedItem = ref('');\r\n    const selectedItems = ref([]);\r\n    const selectedItemCount = ref(0);\r\n    watch (selectedList, (value, oldValue) => {\r\n      if (oldValue !== value) {\r\n        selectedItems.value = listData[value];\r\n        if (selectedItems.value.length === 1) {\r\n            selectedItem.value = selectedItems.value[0];\r\n          } else {\r\n            selectedItem.value = '';\r\n          }\r\n        /* setTimeout(() => {\r\n          if (selectedItems.value.length === 1) {\r\n            selectedItem.value = selectedItems.value[0];\r\n          } else {\r\n            selectedItem.value = '';\r\n          }\r\n        }, 1);  */\r\n      }\r\n    });\r\n    watch (selectedItem, (value, oldValue) => {\r\n      if (value !== oldValue) {\r\n        selectedItemCount.value += 1;\r\n      }\r\n    });\r\n    return { selectedList, selectedItems, selectedItem, lists, selectedItemCount };\r\n  },\r\n  \r\n};\r\n</script>\r\n<style>\r\nselect {\r\n  margin-top: 10px;\r\n  margin-left: 5px;\r\n}\r\noption {\r\n   width: 300px;\r\n}\r\n</style>"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11815,110 +11761,6 @@ module.exports = function (item) {
 
 /***/ }),
 
-/***/ "./src/composables/treeView.js":
-/*!*************************************!*\
-  !*** ./src/composables/treeView.js ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ manageTree)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
-/* harmony import */ var _repos_sampleData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../repos/sampleData */ "./src/repos/sampleData.js");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function manageTree(treeSelectionRef, levelSelectionRef) {
-    const treelist = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)([]); // list of all available trees
-    const compLevels = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)([]); // branches of each level of the current tree
-    let currentLevel = -1; // current level of the tree we're on
-    let selectedTreeId = '';
-    function populateTreeList() {
-        return __awaiter(this, void 0, void 0, function* () {
-            treelist.splice(0);
-            const treeData = yield (0,_repos_sampleData__WEBPACK_IMPORTED_MODULE_1__.getTreeListXhr)();
-            treeData.forEach((tt) => {
-                treelist.push({
-                    id: tt.id,
-                    label: tt.label
-                });
-            });
-        });
-    }
-    // get a tree and all the levels.  The first
-    // level of the tree will have all the branches
-    function treeSelected(value) {
-        return __awaiter(this, void 0, void 0, function* () {
-            selectedTreeId = value;
-            compLevels.splice(0);
-            const tree = yield (0,_repos_sampleData__WEBPACK_IMPORTED_MODULE_1__.getTreeXhr)(value);
-            currentLevel = 0;
-            levelSelectionRef.value = -1;
-            const lvl0 = yield (0,_repos_sampleData__WEBPACK_IMPORTED_MODULE_1__.getTreeLevelXhr)(tree.id, 0);
-            tree.levels.forEach((lvl) => {
-                compLevels.push({
-                    id: lvl.id,
-                    label: lvl.label,
-                    level: lvl.level,
-                    items: []
-                });
-                if (lvl.level === 0) {
-                    lvl0.items.forEach((item) => {
-                        compLevels[0].items.push({ id: item.id, label: item.label });
-                    });
-                }
-            });
-        });
-    }
-    function getTreeLevel(lvlIndex) {
-        return __awaiter(this, void 0, void 0, function* () {
-            var i = 0;
-            if (compLevels.length <= lvlIndex + 1) {
-                return;
-            }
-            currentLevel = lvlIndex + 1;
-            // Clear out any levels beyond this one
-            for (i = currentLevel; i < compLevels.length; ++i) {
-                compLevels[i].items.splice(0);
-            }
-            const lvl = yield (0,_repos_sampleData__WEBPACK_IMPORTED_MODULE_1__.getTreeLevelXhr)(selectedTreeId, currentLevel);
-            const compNode = compLevels[currentLevel];
-            compNode.id = lvl.id;
-            compNode.label = lvl.label;
-            compNode.level = lvl.level;
-            compNode.items.splice(0);
-            setTimeout(() => {
-                lvl.items.forEach((ii) => {
-                    compNode.items.push({ id: ii.id, label: ii.label });
-                });
-            });
-            // updateTree();
-        });
-    }
-    populateTreeList();
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(treeSelectionRef, (value) => {
-        treeSelected(value);
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(levelSelectionRef, (value) => {
-        getTreeLevel(value);
-    });
-    return { compLevels, treelist };
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/dist/exportHelper.js":
 /*!******************************************************!*\
   !*** ./node_modules/vue-loader/dist/exportHelper.js ***!
@@ -11984,213 +11826,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
-/* harmony import */ var _composables_treeView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../composables/treeView */ "./src/composables/treeView.js");
-/* harmony import */ var _treetop_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./treetop.vue */ "./src/components/treetop.vue");
-/* harmony import */ var _treeview_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./treeview.vue */ "./src/components/treeview.vue");
-
-
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: { treetop: _treetop_vue__WEBPACK_IMPORTED_MODULE_2__["default"], treeview: _treeview_vue__WEBPACK_IMPORTED_MODULE_3__["default"] },
-  props: {
-    selectedTree: String,
-    selectedLevel: Number,
-    treelist: Array,
-    domId: String, 
-    compLevels: Array,
-    tabASelected: Boolean,
-    tabBSelected: Boolean,
-    selectedTab: Number,
+  setup() {
+    const listData = {
+      "list1": ["value1-1", "value1-2", "value1-3"],
+      "list2": ["value2-1"]
+    }
+    const lists = ["list1", "list2"];
+    const selectedList = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    const selectedItem = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    const selectedItems = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    const selectedItemCount = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch) (selectedList, (value, oldValue) => {
+      if (oldValue !== value) {
+        selectedItems.value = listData[value];
+        if (selectedItems.value.length === 1) {
+            selectedItem.value = selectedItems.value[0];
+          } else {
+            selectedItem.value = '';
+          }
+        /* setTimeout(() => {
+          if (selectedItems.value.length === 1) {
+            selectedItem.value = selectedItems.value[0];
+          } else {
+            selectedItem.value = '';
+          }
+        }, 1);  */
+      }
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch) (selectedItem, (value, oldValue) => {
+      if (value !== oldValue) {
+        selectedItemCount.value += 1;
+      }
+    });
+    return { selectedList, selectedItems, selectedItem, lists, selectedItemCount };
   },
-  setup(props) {
-    const selectedTree = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    const selectedLevel = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(-1);
-    const { compLevels, treelist } = (0,_composables_treeView__WEBPACK_IMPORTED_MODULE_1__["default"])(selectedTree, selectedLevel);
-    const domId = props.domId;
-    const selectedTab = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
-    const tabASelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(() => selectedTab.value === 0);
-    const tabBSelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(() => selectedTab.value === 1);
-    return { selectedTree, selectedLevel, treelist, domId, compLevels, tabASelected, tabBSelected, selectedTab };
-  },
-  methods: {
-    treeSelected(val) {
-      this.selectedTree = val.value;
-    },
-    showTabA() {
-      this.selectedTab = 0;
-    },
-    showTabB() {
-      this.selectedTab = 1;
-    },
-    levelSelected(val) {
-      this.selectedLevel = val.level;
-    },
-  },
+  
 });
-
-
-/***/ }),
-
-/***/ "./src/components/treetop.vue":
-/*!************************************!*\
-  !*** ./src/components/treetop.vue ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _treetop_vue_vue_type_template_id_aca310d2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./treetop.vue?vue&type=template&id=aca310d2 */ "./src/components/treetop.vue?vue&type=template&id=aca310d2");
-/* harmony import */ var _treetop_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./treetop.vue?vue&type=script&lang=js */ "./src/components/treetop.vue?vue&type=script&lang=js");
-/* harmony import */ var _treetop_vue_vue_type_style_index_0_id_aca310d2_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css */ "./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css");
-/* harmony import */ var C_src_git_vue3base_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
-
-
-
-
-;
-
-
-const __exports__ = /*#__PURE__*/(0,C_src_git_vue3base_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_treetop_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_treetop_vue_vue_type_template_id_aca310d2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"src/components/treetop.vue"]])
-/* hot reload */
-if (false) {}
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=script&lang=js":
-/*!********************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=script&lang=js ***!
-  \********************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
-
-
-// import { default as treeview } from "./treeview.vue";
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
-  //   components: { treeview },
-  props: {
-    treelist: Array,
-    domId: String
-  },
-  setup(props) {
-    return {
-      treelist: props.treelist,
-    };
-  },
-  data() {
-    return { currentTree: "" };
-  },
-  emits: ["tree-selected"],
-  computed: {
-    uniqueId() {
-      return this.domId + '-chooser';
-    }
-  },
-  methods: {
-    selected(ev) {
-      this.currentTree = ev.currentTarget.value;
-      this.$emit("tree-selected", { value: this.currentTree });
-    },
-  },
-}));
-
-
-/***/ }),
-
-/***/ "./src/components/treeview.vue":
-/*!*************************************!*\
-  !*** ./src/components/treeview.vue ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _treeview_vue_vue_type_template_id_0f9c21d3_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./treeview.vue?vue&type=template&id=0f9c21d3&scoped=true */ "./src/components/treeview.vue?vue&type=template&id=0f9c21d3&scoped=true");
-/* harmony import */ var _treeview_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./treeview.vue?vue&type=script&lang=js */ "./src/components/treeview.vue?vue&type=script&lang=js");
-/* harmony import */ var _treeview_vue_vue_type_style_index_0_id_0f9c21d3_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css */ "./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css");
-/* harmony import */ var C_src_git_vue3base_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
-
-
-
-
-;
-
-
-const __exports__ = /*#__PURE__*/(0,C_src_git_vue3base_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_treeview_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_treeview_vue_vue_type_template_id_0f9c21d3_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-0f9c21d3"],['__file',"src/components/treeview.vue"]])
-/* hot reload */
-if (false) {}
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=script&lang=js":
-/*!*********************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=script&lang=js ***!
-  \*********************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
-  name: "treeview",
-  setup(props) {
-    const id = props.id;
-    const label = props.label;
-    const items = props.items;
-    const level = props.level;
-    const domId = props.domId;
-    return { id, label, items, level, domId };
-  },
-  data() {
-    return { currentValue: "" };
-  },
-  emits: ['level-selected'],
-  props: {
-    id: String,
-    label: String,
-    items: Array,
-    level: Number,
-    domId: String
-  },
-  computed: {
-    isDisabled() {
-      return this.items.length < 1;
-    },
-    uniqueId() {
-      return this.domId + '-' + this.level;
-    }
-  },
-  methods: {
-    selected(ev) {
-      this.currentValue = ev.currentTarget.value;
-      this.$emit("level-selected", { value: this.currentValue, level: this.level });
-    },
-  },
-}));
 
 
 /***/ }),
@@ -12211,38 +11886,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/components/treetop.vue?vue&type=script&lang=js":
-/*!************************************************************!*\
-  !*** ./src/components/treetop.vue?vue&type=script&lang=js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./treetop.vue?vue&type=script&lang=js */ "./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=script&lang=js");
- 
-
-/***/ }),
-
-/***/ "./src/components/treeview.vue?vue&type=script&lang=js":
-/*!*************************************************************!*\
-  !*** ./src/components/treeview.vue?vue&type=script&lang=js ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./treeview.vue?vue&type=script&lang=js */ "./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=script&lang=js");
- 
-
-/***/ }),
-
 /***/ "./src/components/App.vue?vue&type=template&id=617ab0be":
 /*!**************************************************************!*\
   !*** ./src/components/App.vue?vue&type=template&id=617ab0be ***!
@@ -12255,38 +11898,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_App_vue_vue_type_template_id_617ab0be__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_App_vue_vue_type_template_id_617ab0be__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./App.vue?vue&type=template&id=617ab0be */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/App.vue?vue&type=template&id=617ab0be");
-
-
-/***/ }),
-
-/***/ "./src/components/treetop.vue?vue&type=template&id=aca310d2":
-/*!******************************************************************!*\
-  !*** ./src/components/treetop.vue?vue&type=template&id=aca310d2 ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_template_id_aca310d2__WEBPACK_IMPORTED_MODULE_0__.render)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_template_id_aca310d2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./treetop.vue?vue&type=template&id=aca310d2 */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=template&id=aca310d2");
-
-
-/***/ }),
-
-/***/ "./src/components/treeview.vue?vue&type=template&id=0f9c21d3&scoped=true":
-/*!*******************************************************************************!*\
-  !*** ./src/components/treeview.vue?vue&type=template&id=0f9c21d3&scoped=true ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_template_id_0f9c21d3_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_template_id_0f9c21d3_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./treeview.vue?vue&type=template&id=0f9c21d3&scoped=true */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=template&id=0f9c21d3&scoped=true");
 
 
 /***/ }),
@@ -12308,40 +11919,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css":
-/*!********************************************************************************!*\
-  !*** ./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_style_index_0_id_aca310d2_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader/index.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_style_index_0_id_aca310d2_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_style_index_0_id_aca310d2_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_style_index_0_id_aca310d2_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treetop_vue_vue_type_style_index_0_id_aca310d2_lang_css__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-
-
-/***/ }),
-
-/***/ "./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css":
-/*!*********************************************************************************************!*\
-  !*** ./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css ***!
-  \*********************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_style_index_0_id_0f9c21d3_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader/index.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_style_index_0_id_0f9c21d3_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_style_index_0_id_0f9c21d3_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_style_index_0_id_0f9c21d3_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_6_use_0_treeview_vue_vue_type_style_index_0_id_0f9c21d3_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/App.vue?vue&type=template&id=617ab0be":
 /*!********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/App.vue?vue&type=template&id=617ab0be ***!
@@ -12356,176 +11933,63 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
 
 
-const _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("sub", null, [
-  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", { href: "https://github.com/AaronDavidNewman/vue3base" }, "Github "),
-  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" site. "),
-  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", { href: "https://aarondavidnewman.github.io/vue3base/" }, "Readme"),
-  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" documentation")
+const _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [
+  /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("sub", null, [
+    /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", { href: "https://github.com/AaronDavidNewman/vue3base" }, "Github "),
+    /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" site. "),
+    /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", { href: "https://aarondavidnewman.github.io/vue3base/" }, "Readme"),
+    /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" documentation")
+  ])
 ], -1 /* HOISTED */)
-const _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "This is a demo of the Vue3 Composition API", -1 /* HOISTED */)
-const _hoisted_3 = { class: "tabContent" }
-const _hoisted_4 = { class: "itemPreferences" }
-const _hoisted_5 = { class: "itemPropertiesContainer" }
-const _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "The select boxes implement a tree-like control. This navigation tab serves no purpose.", -1 /* HOISTED */)
-const _hoisted_7 = { class: "nav-tabs" }
-const _hoisted_8 = { class: "tab-content" }
-const _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", { class: "stdSubIntro" }, "Pick a tree, then pick branches", -1 /* HOISTED */)
-const _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", { class: "stdSubIntro" }, "Useless tabl here", -1 /* HOISTED */)
-const _hoisted_11 = [
-  _hoisted_10
-]
-
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_treetop = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("treetop")
-  const _component_treeview = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("treeview")
-
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [
-    _hoisted_1,
-    _hoisted_2,
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [
-          _hoisted_6,
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_7, [
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
-              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-tab", { active: $setup.tabASelected }])
-            }, [
-              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-                class: "nav-link",
-                href: "",
-                onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => ($options.showTabA && $options.showTabA(...args)), ["prevent"]))
-              }, "Tab A")
-            ], 2 /* CLASS */),
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
-              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item", { active: $setup.tabBSelected }])
-            }, [
-              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-                class: "nav-link",
-                href: "",
-                onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => ($options.showTabB && $options.showTabB(...args)), ["prevent"]))
-              }, "Tab B")
-            ], 2 /* CLASS */)
-          ]),
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["formSection tab-pane", { active: $setup.tabASelected }])
-            }, [
-              _hoisted_9,
-              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_treetop, {
-                treelist: $setup.treelist,
-                domId: $setup.domId,
-                onTreeSelected: $options.treeSelected
-              }, null, 8 /* PROPS */, ["treelist", "domId", "onTreeSelected"]),
-              ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.compLevels, (level) => {
-                return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-                  key: level.id
-                }, [
-                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_treeview, {
-                    items: level.items,
-                    label: level.label,
-                    id: level.id,
-                    level: level.level,
-                    onLevelSelected: $options.levelSelected,
-                    domId: $setup.domId
-                  }, null, 8 /* PROPS */, ["items", "label", "id", "level", "onLevelSelected", "domId"])
-                ]))
-              }), 128 /* KEYED_FRAGMENT */))
-            ], 2 /* CLASS */),
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["formSection tab-pane", { active: $setup.tabBSelected }])
-            }, _hoisted_11, 2 /* CLASS */)
-          ])
-        ])
-      ])
-    ])
-  ], 64 /* STABLE_FRAGMENT */))
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=template&id=aca310d2":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=template&id=aca310d2 ***!
-  \************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
-
-
-const _hoisted_1 = ["id"]
 const _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "",
   style: {"display":"none"}
-}, "Select a tree", -1 /* HOISTED */)
+}, "Select a list", -1 /* HOISTED */)
 const _hoisted_3 = ["value"]
-
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("select", {
-    id: _ctx.uniqueId,
-    onChange: _cache[0] || (_cache[0] = (...args) => (_ctx.selected && _ctx.selected(...args))),
-    class: "astAttrSelect"
-  }, [
-    _hoisted_2,
-    ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.treelist, (tree) => {
-      return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-        key: tree.id,
-        value: tree.id
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(tree.label), 9 /* TEXT, PROPS */, _hoisted_3))
-    }), 128 /* KEYED_FRAGMENT */))
-  ], 40 /* PROPS, HYDRATE_EVENTS */, _hoisted_1))
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=template&id=0f9c21d3&scoped=true":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=template&id=0f9c21d3&scoped=true ***!
-  \*************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
-
-
-const _withScopeId = n => ((0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-0f9c21d3"),n=n(),(0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(),n)
-const _hoisted_1 = { class: "form-group form-group-constrained" }
-const _hoisted_2 = ["for"]
-const _hoisted_3 = ["id", "disabled"]
-const _hoisted_4 = {
-  value: "default",
+const _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "",
   style: {"display":"none"}
-}
+}, "Select an item", -1 /* HOISTED */)
 const _hoisted_5 = ["value"]
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-      class: "form-group-label",
-      for: _ctx.uniqueId
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.label), 9 /* TEXT, PROPS */, _hoisted_2),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-      id: _ctx.uniqueId,
-      onChange: _cache[0] || (_cache[0] = (...args) => (_ctx.selected && _ctx.selected(...args))),
-      disabled: _ctx.isDisabled
-    }, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", _hoisted_4, "Select a " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.label), 1 /* TEXT */),
-      ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.items, (item) => {
-        return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-          key: item.label,
-          value: item.id
-        }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.label), 9 /* TEXT, PROPS */, _hoisted_5))
-      }), 128 /* KEYED_FRAGMENT */))
-    ], 40 /* PROPS, HYDRATE_EVENTS */, _hoisted_3)
-  ]))
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [
+    _hoisted_1,
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => (($setup.selectedList) = $event))
+      }, [
+        _hoisted_2,
+        ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.lists, (list) => {
+          return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+            key: list,
+            value: list
+          }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(list), 9 /* TEXT, PROPS */, _hoisted_3))
+        }), 128 /* KEYED_FRAGMENT */))
+      ], 512 /* NEED_PATCH */), [
+        [vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.selectedList]
+      ]),
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedList), 1 /* TEXT */)
+      ]),
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = $event => (($setup.selectedItem) = $event))
+      }, [
+        _hoisted_4,
+        ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.selectedItems, (item) => {
+          return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+            key: item,
+            value: item
+          }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item), 9 /* TEXT, PROPS */, _hoisted_5))
+        }), 128 /* KEYED_FRAGMENT */))
+      ], 512 /* NEED_PATCH */), [
+        [vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.selectedItem]
+      ]),
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedItem) + " count " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedItemCount), 1 /* TEXT */)
+      ])
+    ])
+  ], 64 /* STABLE_FRAGMENT */))
 }
 
 /***/ }),
@@ -12546,48 +12010,6 @@ if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = (__webpack_require__(/*! !../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js")["default"])
 var update = add("13c5cf20", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treetop.vue?vue&type=style&index=0&id=aca310d2&lang=css");
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = (__webpack_require__(/*! !../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js")["default"])
-var update = add("77d2deea", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/dist/stylePostLoader.js!../../node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[6].use[0]!./src/components/treeview.vue?vue&type=style&index=0&id=0f9c21d3&scoped=true&lang=css");
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = (__webpack_require__(/*! !../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js")["default"])
-var update = add("ab77bace", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
@@ -13054,129 +12476,6 @@ const compile = () => {
 
 
 
-/***/ }),
-
-/***/ "./src/repos/sampleData.js":
-/*!*********************************!*\
-  !*** ./src/repos/sampleData.js ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getTreeListXhr": () => (/* binding */ getTreeListXhr),
-/* harmony export */   "getTreeXhr": () => (/* binding */ getTreeXhr),
-/* harmony export */   "getTreeLevelXhr": () => (/* binding */ getTreeLevelXhr),
-/* harmony export */   "sampleData": () => (/* binding */ sampleData)
-/* harmony export */ });
-async function getTreeListXhr() {
-  return sampleData.map((x) => {
-    return { label: x.label, id: x.id, index: x.index };
-  });
-}
-async function getTreeXhr(treeId) {
-  const tree = sampleData.find((tree) => tree.id === treeId);
-  const rv = {
-    id: tree.id,
-    label: tree.label,
-    levels: []
-  };
-  tree.levels.forEach((level) => {
-    rv.levels.push({
-      id: level.id,
-      label: level.label,
-      level: level.level,
-      items: []
-    });
-  });
-  return tree;
-}
-async function getTreeLevelXhr(treeId, level) {
-  return sampleData.find((tree) => tree.id === treeId).levels[level];
-}
-
-const sampleData = [
-  {
-    id: "Tree1",
-    label: "Tree 1",
-    index: 0,
-    levels: [
-      {
-        id: "0",
-        label: "1-1",
-        level: 0,
-        items: [
-          { id: "1-1-1", label: "1-1-1" },
-          { id: "1-1-2", label: "Second branch" },
-        ],
-      },
-      {
-        id: "2",
-        label: "1-2",
-        level: 1,
-        items: [
-          { id: "1-2-1", label: "1-2-1" },
-          { id: "1-2-2", label: "Second lvl 2nd branch" },
-        ],
-      },
-      {
-        id: "3",
-        label: "1-3",
-        level: 2,
-        items: [
-          { id: "1-3-1", label: "1-3-1" },
-          { id: "1-3-2", label: "Third lvl 2nd branch" },
-        ],
-      },
-    ],
-  },
-  {
-    id: "Tree2",
-    label: "Tree 2",
-    index: 1,
-    levels: [
-      {
-        id: "0",
-        label: "2-1",
-        level: 0,
-        items: [
-          { id: "2-1-1", label: "2-1-1" },
-          { id: "2-1-2", label: "Second branch" },
-        ],
-      },
-      {
-        id: "2",
-        label: "2-2",
-        level: 1,
-        items: [
-          { id: "2-2-1", label: "2-2-1" },
-          { id: "2-2-2", label: "other branch" },
-        ],
-      },
-      {
-        id: "3",
-        label: "2-3",
-        level: 2,
-        items: [
-          { id: "2-3-1", label: "2-3-1" },
-          { id: "2-3-2", label: "olive branch" },
-          { id: "2-3-3", label: "cows" },
-        ],
-      },
-      {
-        id: "4",
-        label: "2-4",
-        level: 3,
-        items: [
-          { id: "2-4-1", label: "2-4-1" },
-          { id: "2-4-2", label: "ultimate branch" },
-        ],
-      },
-    ],
-  },
-];
-
 /***/ })
 
 /******/ 	});
@@ -13271,7 +12570,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/App.vue */ "./src/components/App.vue");
 
 
-const app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_components_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"], { domId: 'flibber' }).mount('#app');
+const app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_components_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]).mount('#app');
 
 })();
 

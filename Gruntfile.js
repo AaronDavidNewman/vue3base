@@ -6,7 +6,7 @@ const { VueLoaderPlugin } =require('vue-loader');
 const { webpack, DefinePlugin } = require('webpack');
 const BASE_DIR = __dirname;
 const OUTPUT_DIR = BASE_DIR + '/build/';
-const buildFiles = ['main.js', 'sampleData.js', '/composables/treeView.js'];
+const buildFiles = ['main.js'];
 
 /**
  * @returns a webpack config object.  Useful if there are several build targets
